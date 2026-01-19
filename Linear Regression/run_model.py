@@ -2,9 +2,9 @@ import pandas as pd
 import joblib
 
 # โหลดโมเดลที่บันทึกไว้
-print("📂 กำลังโหลดโมเดล...")
+print("กำลังโหลดโมเดล...")
 model = joblib.load("weather_model.pkl")
-print("✅ โหลดโมเดลสำเร็จ!")
+print("โหลดโมเดลสำเร็จ!")
 
 # ทดสอบการทำนายกับข้อมูลใหม่
 test_cases = [
@@ -14,7 +14,7 @@ test_cases = [
     {"name": "วันปกติ", "MaxTemp": 30, "MinTemp": 24, "Precip": 2}
 ]
 
-print("\n🔮 ทดสอบการทำนายของ AI:")
+print("\nทดสอบการทำนายของ AI:")
 print("=" * 50)
 
 for test_case in test_cases:
@@ -24,7 +24,7 @@ for test_case in test_cases:
 
     predicted_temp = model.predict(test_data)[0]
 
-    print(f"\n🌤️ {test_case['name']}:")
+    print(f"\n{test_case['name']}:")
     print(
-        f"   📊 ข้อมูลนำเข้า: MaxTemp={test_case['MaxTemp']}°C, MinTemp={test_case['MinTemp']}°C, Precip={test_case['Precip']} mm")
-    print(f"   🎯 ผลการทำนาย (MeanTemp ของวันถัดไป): {predicted_temp:.2f}°C")
+        f"   ข้อมูลนำเข้า: MaxTemp={test_case['MaxTemp']}°C, MinTemp={test_case['MinTemp']}°C, Precip={test_case['Precip']} mm")
+    print(f"   ผลการทำนาย (MeanTemp ของวันถัดไป): {predicted_temp:.2f}°C")
