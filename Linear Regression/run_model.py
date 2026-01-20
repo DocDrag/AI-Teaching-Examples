@@ -26,5 +26,6 @@ for test_case in test_cases:
 
     print(f"\n{test_case['name']}:")
     print(
-        f"   ข้อมูลนำเข้า: MaxTemp={test_case['MaxTemp']}°C, MinTemp={test_case['MinTemp']}°C, Precip={test_case['Precip']} mm")
+        f"   ข้อมูลนำเข้า: MaxTemp={test_case['MaxTemp']}°C, MinTemp={test_case['MinTemp']}°C"
+        f", Precip={test_case['Precip']} mm")
     print(f"   ผลการทำนาย (MeanTemp ของวันถัดไป): {prediction:.2f}°C")
