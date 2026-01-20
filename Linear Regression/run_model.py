@@ -22,9 +22,9 @@ for test_case in test_cases:
     test_data = pd.DataFrame([[test_case["MaxTemp"], test_case["MinTemp"], test_case["Precip"]]],
                              columns=['MaxTemp', 'MinTemp', 'Precip'])
 
-    predicted_temp = model.predict(test_data)[0]
+    prediction = model.predict(test_data)[0]
 
     print(f"\n{test_case['name']}:")
     print(
         f"   ข้อมูลนำเข้า: MaxTemp={test_case['MaxTemp']}°C, MinTemp={test_case['MinTemp']}°C, Precip={test_case['Precip']} mm")
-    print(f"   ผลการทำนาย (MeanTemp ของวันถัดไป): {predicted_temp:.2f}°C")
+    print(f"   ผลการทำนาย (MeanTemp ของวันถัดไป): {prediction:.2f}°C")
