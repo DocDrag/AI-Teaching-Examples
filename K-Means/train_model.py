@@ -9,6 +9,12 @@ df = pd.read_csv('customer_scaled_data.csv')
 # เตรียมข้อมูล
 X = df[['Recency', 'Frequency', 'Monetary']].values
 
+# print("กำลังหาค่า K ที่เหมาะสม...")
+# for k in range(1, 11):
+#     kmeans = KMeans(n_clusters=k, random_state=42)
+#     kmeans.fit(X)
+#     print(f"K = {k}, Inertia = {kmeans.inertia_:.2f}")
+
 # ฝึกโมเดล K-Means
 optimal_k = 3
 kmeans = KMeans(n_clusters=optimal_k, random_state=42, n_init=10)
@@ -18,7 +24,7 @@ df['Cluster'] = kmeans.fit_predict(X)
 print("\n=== การวิเคราะห์แต่ละกลุ่มลูกค้า ===")
 for cluster in range(optimal_k):
     cluster_data = df[df['Cluster'] == cluster]
-    print(f"\n📊 กลุ่มที่ {cluster}:")
+    print(f"\n  กลุ่มที่ {cluster}:")
     print(f"   จำนวนลูกค้า: {len(cluster_data)} คน")
     print(f"   เฉลี่ย Recency: {cluster_data['Recency'].mean():.1f}")
     print(f"   เฉลี่ย Frequency: {cluster_data['Frequency'].mean():.1f}")
@@ -33,11 +39,11 @@ for cluster in range(optimal_k):
     avg_m = cluster_data['Monetary'].mean()
 
     if avg_m > 0.8 and avg_f > 0.7:
-        cluster_names[cluster] = "💎 ลูกค้า VIP"
+        cluster_names[cluster] = "- ลูกค้า VIP"
     elif avg_f > 0.5 and avg_m < 0.4:
-        cluster_names[cluster] = "💰 ลูกค้าประหยัด"
+        cluster_names[cluster] = "- ลูกค้าประหยัด"
     else:
-        cluster_names[cluster] = "😴 ลูกค้าไม่แน่นอน"
+        cluster_names[cluster] = "- ลูกค้าไม่แน่นอน"
 
 # บันทึกโมเดลและข้อมูล
 joblib.dump(kmeans, 'customer_kmeans.pkl')
