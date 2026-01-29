@@ -5,7 +5,7 @@ print("กำลังโหลดข้อมูลลูกค้า...")
 dataset = pd.read_csv("customer.csv", low_memory=False)
 
 print(f"ข้อมูลทั้งหมด: {len(dataset)} รายการ")
-print(f"อลัมน์ในข้อมูล: {list(dataset.columns)}")
+print(f"คอลัมน์ในข้อมูล: {list(dataset.columns)}")
 
 # เลือกเฉพาะคอลัมน์ที่ต้องการใช้งาน
 data = dataset[['Recency', 'Frequency', 'Monetary', 'CustomerID']]
@@ -31,4 +31,4 @@ print(f" หลังทำความสะอาด: เหลือ {len(dat
 output_file = "customer_clean_data.csv"
 data.to_csv(output_file, index=False)
 
-print(f"💾 บันทึกข้อมูลที่ทำความสะอาดแล้วไว้ที่: {output_file}")
+print(f"- บันทึกข้อมูลที่ทำความสะอาดแล้วไว้ที่: {output_file}")

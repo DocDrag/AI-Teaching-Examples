@@ -40,10 +40,10 @@ for cluster in range(optimal_k):
 
     if avg_m > 0.8 and avg_f > 0.7:
         cluster_names[cluster] = "- ลูกค้า VIP"
-    elif avg_f > 0.5 and avg_m < 0.4:
-        cluster_names[cluster] = "- ลูกค้าประหยัด"
-    else:
+    elif avg_r > 1.0:
         cluster_names[cluster] = "- ลูกค้าไม่แน่นอน"
+    else:
+        cluster_names[cluster] = "- ลูกค้าทั่วไป"
 
 # บันทึกโมเดลและข้อมูล
 joblib.dump(kmeans, 'customer_kmeans.pkl')

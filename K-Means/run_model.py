@@ -29,7 +29,7 @@ def predict_customer_group(customer_data):
 def get_ad_strategy(group_name):
     if group_name == "- ลูกค้า VIP":
         return {"โฆษณา": "สินค้าพรีเมียมล่าสุด - เฉพาะคุณเท่านั้น!", "ข้อเสนอ": "ส่วนลด 15% + ส่งฟรี"}
-    elif group_name == "- ลูกค้าประหยัด":
+    elif group_name == "- ลูกค้าทั่วไป":
         return {"โฆษณา": "Flash Sale สุดคุ้ม! ลดสูงสุด 50%", "ข้อเสนอ": "ซื้อ 2 แถม 1 + คูปอง 100 บาท"}
     else:  # ลูกค้าไม่แน่นอน
         return {"โฆษณา": "เราคิดถึงคุณ!", "ข้อเสนอ": "คูปองส่วนลด 30% (7 วัน)"}
