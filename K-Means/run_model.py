@@ -36,7 +36,7 @@ def get_ad_strategy(group_name):
 
 # ------------------ MAIN ------------------
 if __name__ == "__main__":
-    # ✏️ ใส่ค่าลูกค้าที่นี่
+    # ใส่ค่าลูกค้าที่นี่
     Recency = 30 # วัน
     Frequency = 12 # ครั้ง/ปี
     Monetary = 15000 # บาท/ปี
