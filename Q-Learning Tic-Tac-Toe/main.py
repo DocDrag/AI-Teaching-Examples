@@ -35,6 +35,9 @@ class TicTacToe:
 
     def print_board(self):
         symbols = {0: None, 1: "X", -1: "O"}
+        BLUE = '\033[34m'
+        RESET = '\033[0m'
+
         print("\nกระดาน:")
         for i in range(3):
             row = []
@@ -43,7 +46,7 @@ class TicTacToe:
                 if val == 0:
                     row.append(str(i * 3 + j + 1))  # แสดงเลขช่องว่าง
                 else:
-                    row.append(symbols[val])
+                    row.append(f"{BLUE}{symbols[val]}{RESET}")
             print(" | ".join(row))
             if i < 2:
                 print("--+---+--")
