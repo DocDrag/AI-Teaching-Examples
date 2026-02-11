@@ -13,19 +13,23 @@
 เอกสารประกอบการเรียนรู้ ทฤษฎี และคำอธิบายคอนเซปต์ต่างๆ
 - [📄 ดาวน์โหลดใบความรู้ทั้งหมด](https://github.com/DocDrag/AI-Teaching-Examples/tree/main/%E0%B9%83%E0%B8%9A%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B9%E0%B9%89)
 
-### 💻 2. ตัวอย่างโค้ด (Source Code)
+### 📺 2. วิดีโอสื่อการสอน (Video Tutorials)
+วิดีโออธิบายเนื้อหาบทเรียนและขั้นตอนการเขียนโค้ด
+- [▶️ คลิกเพื่อดูวิดีโอทั้งหมด](https://www.youtube.com/@SyvirComberater)
+
+### 💻 3. ตัวอย่างโค้ด (Source Code)
 รวมไฟล์ Python และตัวอย่างการเขียนโค้ดทั้งหมดในโปรเจกต์
 - [📂 ไปยังหน้า Code ทั้งหมด](https://github.com/DocDrag/AI-Teaching-Examples)
 
-### 📝 3. ใบงาน (Worksheets)
+### 📝 4. ใบงาน (Worksheets)
 แบบฝึกหัดสำหรับทดสอบความเข้าใจและการลงมือทำจริง
 - [✍️ ดาวน์โหลดใบงานทั้งหมด](https://github.com/DocDrag/AI-Teaching-Examples/tree/main/%E0%B9%83%E0%B8%9A%E0%B8%87%E0%B8%B2%E0%B8%99)
 
-### 🧠 4. แบบทดสอบวัดผล (Assessment)
+### 🧠 5. แบบทดสอบวัดผล (Assessment)
 แบบทดสอบก่อนและหลังเรียนเพื่อวัดระดับความเข้าใจในบทเรียน
 - [👉 คลิกเพื่อทำแบบทดสอบ](https://forms.gle/GE18ZB2LsF7dgFgz8)
 
-### 🎓 5. ปริญญานิพนธ์ (Thesis)
+### 🎓 6. ปริญญานิพนธ์ (Thesis)
 เอกสารรูปเล่มฉบับเต็ม รายละเอียดโครงการ และผลการศึกษา
 - [📖 อ่านปริญญานิพนธ์](https://github.com/DocDrag/AI-Teaching-Examples/tree/main/%E0%B8%9B%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%8D%E0%B8%B2%E0%B8%99%E0%B8%B4%E0%B8%9E%E0%B8%99%E0%B8%98%E0%B9%8C)
 
