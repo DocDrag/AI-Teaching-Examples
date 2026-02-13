@@ -15,7 +15,7 @@
 
 ### 📺 2. วิดีโอสื่อการสอน (Video Tutorials)
 วิดีโออธิบายเนื้อหาบทเรียนและขั้นตอนการเขียนโค้ด
-- [▶️ คลิกเพื่อดูวิดีโอทั้งหมด](https://www.youtube.com/@SyvirComberater)
+- [▶️ คลิกเพื่อดูวิดีโอทั้งหมด](https://www.youtube.com/playlist?list=PL8twJf6slvVuSn3jrhnodvXY-ItNAGD1Q)
 
 ### 💻 3. ตัวอย่างโค้ด (Source Code)
 รวมไฟล์ Python และตัวอย่างการเขียนโค้ดทั้งหมดในโปรเจกต์
