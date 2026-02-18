@@ -32,14 +32,29 @@ while True:
 
             emb = resnet(face_tensor.unsqueeze(0)).detach().numpy()
             # หาคนที่คล้ายที่สุด
-            name, best = "Unknown", 0
+            best_name = "Unknown"
+            best_score = 0.0
             for n, ref in refs.items():
                 sim = cosine_sim(emb, ref)
-                if sim > best: name, best = n, sim
+                if sim > best_score:
+                    best_name = n
+                    best_score = sim
 
-            cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
-            cv2.putText(frame,f"{name}",(x1,y1-10),
-                        cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,255,255),2)
+            if best_score >= 0.6:
+                final_name = best_name
+                color = (0, 255, 0)  # สีเขียว (รู้จัก)
+            else:
+                final_name = "Unknown"
+                color = (0, 0, 255)  # สีแดง (ไม่รู้จัก/ไม่มั่นใจ)
+
+                # วาดกรอบและชื่อ
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+
+            # แสดงชื่อพร้อมคะแนนความมั่นใจ
+            score = float(best_score) * 100
+            text_display = f"{final_name} ({score:.2f}%)"
+            cv2.putText(frame, text_display, (x1, y1 - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 
     cv2.imshow("Face Recognition", frame)
     if cv2.waitKey(1)&0xFF==ord("q"): break
