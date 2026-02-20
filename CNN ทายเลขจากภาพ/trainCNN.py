@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 # โหลดข้อมูล MNIST
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
 
-# Reshape เป็น (batch, height, width, channel) และ Normalize
+# Reshape และ Normalize
 X_train = X_train.reshape(-1, 28, 28, 1).astype("float32") / 255.0
 X_test = X_test.reshape(-1, 28, 28, 1).astype("float32") / 255.0
 
@@ -31,7 +31,7 @@ model = Sequential([
 # คอมไพล์โมเดล
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-# ===== เพิ่ม Data Augmentation =====
+# เพิ่ม Data Augmentation
 datagen = ImageDataGenerator(
     rotation_range=10,          # หมุน ±10 องศา
     width_shift_range=0.1,      # เลื่อนซ้าย-ขวา 10%
@@ -45,7 +45,7 @@ datagen = ImageDataGenerator(
 print("Training with Data Augmentation...")
 history = model.fit(
     datagen.flow(X_train, y_train, batch_size=64),
-    epochs=15,  # เพิ่ม epochs เพราะ data หลากหลายขึ้น
+    epochs=15,
     steps_per_epoch=len(X_train) // 64,
     validation_data=(X_test, y_test),
     verbose=1

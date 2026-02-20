@@ -11,7 +11,7 @@ def predict_digit(image_path):
     img = Image.open(image_path).convert('L')
     img_array = np.array(img)
 
-    # ถ้าตัวเลขเป็นดำบนพื้นขาว → กลับสี
+    # กลับสีภาพถ้าจำเป็น
     if np.mean(img_array) > 127:
         img_array = 255 - img_array
 
@@ -21,12 +21,12 @@ def predict_digit(image_path):
 
     if contours:
         x, y, w, h = cv2.boundingRect(max(contours, key=cv2.contourArea))
-        digit_img = img_array[y:y+h, x:x+w]
+        digit_image = img_array[y:y+h, x:x+w]
     else:
-        digit_img = img_array
+        digit_image = img_array
 
     # Resize + normalize
-    digit_pil = Image.fromarray(digit_img).resize((28,28), Image.Resampling.LANCZOS)
+    digit_pil = Image.fromarray(digit_image).resize((28,28), Image.Resampling.LANCZOS)
     img_ready = np.array(digit_pil).astype('float32') / 255.0
     img_ready = img_ready.reshape(1,28,28,1)
 
