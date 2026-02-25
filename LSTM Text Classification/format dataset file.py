@@ -1,15 +1,11 @@
 import deepcut
 
 def tokenize_text(text: str) -> list[str]:
-    """
-    ตัดคำด้วย deepcut และลบช่องว่างเกินออก
-    """
     text = text.strip()
     tokens = deepcut.tokenize(text)
     # ลบ token ที่เป็นช่องว่างหรือว่างเปล่า
     tokens = [t for t in tokens if t.strip()]
     return tokens
-
 
 def main():
     input_file = "cleaned_dataset.txt"           # ไฟล์ข้อความดิบ
@@ -43,7 +39,6 @@ def main():
                 fdataset.write(" ".join(tokens) + "\n")
 
     print(f"✅ แปลงไฟล์ {input_file} → {output_word}, {output_dataset} เรียบร้อยแล้ว")
-
 
 if __name__ == '__main__':
     main()
