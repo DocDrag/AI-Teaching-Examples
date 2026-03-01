@@ -76,7 +76,7 @@ history = model.fit(
     X, y,
     epochs=30,
     batch_size=32,
-    validation_split=0.1,
+    validation_split=0.2,
     callbacks=[es, ckpt]
 )
 
