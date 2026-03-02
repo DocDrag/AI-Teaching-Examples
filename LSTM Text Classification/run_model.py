@@ -20,7 +20,6 @@ model = load_model("model/final_lstm_model.h5")
 id2label = {0: "positive", 1: "negative", 2: "neutral"}
 
 def preprocess_text(text, maxlen=MAXLEN):
-    # ตัดคำด้วย deepcut
     tokens = deepcut.tokenize(text)
     seq = [word_index.get(word, 0) for word in tokens]
     return pad_sequences([seq], maxlen=maxlen)
@@ -37,5 +36,5 @@ if __name__ == "__main__":
         text = input("ป้อนประโยค (หรือ 'exit' เพื่อออก): ")
         if text.lower() == "exit":
             break
-        label, conf = predict(text)
-        print(f"👉 ผลลัพธ์: {label} (ความมั่นใจ {conf:.2f})\n")
+        label, confidence = predict(text)
+        print(f"ผลลัพธ์: {label} (ความมั่นใจ {confidence:.2f})\n")

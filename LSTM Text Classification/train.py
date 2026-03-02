@@ -34,7 +34,7 @@ with open("dataset_format.txt", encoding="utf-8") as f:
 
 # แปลง label เป็นตัวเลข
 label2id = {"positive":0, "negative":1, "neutral":2}
-y = [label2id[l] for l in labels]
+y = [label2id[label] for label in labels]
 
 sequences = []
 for text in texts:

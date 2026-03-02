@@ -38,7 +38,7 @@ def main():
             else:
                 fdataset.write(" ".join(tokens) + "\n")
 
-    print(f"✅ แปลงไฟล์ {input_file} → {output_word}, {output_dataset} เรียบร้อยแล้ว")
+    print(f"แปลงไฟล์ {input_file} → {output_word}, {output_dataset} เรียบร้อยแล้ว")
 
 if __name__ == '__main__':
     main()
