@@ -1,45 +1,45 @@
 import os
+
 os.environ["TORCHDYNAMO_DISABLE"] = "1"
 from transformers import AutoTokenizer, AutoModelForCausalLM
+from peft import PeftModel
 import torch
 
-local_model_path = "./gemma3-finetuned"
+BASE_MODEL_ID = "google/gemma-3-1b-it"
+FINETUNED_ADAPTER_PATH = "./gemma3-finetuned"
 
-tokenizer = AutoTokenizer.from_pretrained(local_model_path)
-model = AutoModelForCausalLM.from_pretrained(
-    local_model_path,
-    torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
-    device_map="auto" if torch.cuda.is_available() else None,
-    trust_remote_code=True
-).eval()
-
+print("🔄 กำลังโหลด Tokenizer...")
+tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL_ID)
 if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"ใช้งานบน: {device}")
+print("🔄 กำลังโหลด Base Model...")
+base_model = AutoModelForCausalLM.from_pretrained(
+    BASE_MODEL_ID,
+    torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+    device_map="auto"
+)
 
-if not torch.cuda.is_available():
-    model.to(device)
+print("🔄 กำลังประกอบร่างกับข้อมูล Fine-tune (Adapter)...")
+model = PeftModel.from_pretrained(base_model, FINETUNED_ADAPTER_PATH)
+model.eval()
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"✅ ใช้งานบน: {device}")
 
 
 def clean_response(text, original_prompt):
-    # ลบ prompt ออกจากต้นข้อความ
     if text.startswith(original_prompt):
         text = text[len(original_prompt):].strip()
-
-    # ตัดที่ <|endoftext|> ตัวจบประโยค
-    if '<|endoftext|>' in text:
-        text = text.split('<|endoftext|>')[0].strip()
-
+    # ตัดข้อความส่วนเกินที่เกิดจากตัวจบประโยคของ Gemma
+    if tokenizer.eos_token in text:
+        text = text.split(tokenizer.eos_token)[0].strip()
     return text
 
 
-def generate_text(prompt, max_tokens=50, temperature=0.7, top_p=0.9):
+def generate_text(prompt, max_tokens=150, temperature=0.5, top_p=0.9):
     try:
-        formatted_prompt = f"คำถาม: {prompt}\nตอบ: "
-
-        inputs = tokenizer(formatted_prompt, return_tensors="pt", padding=True, truncation=True, max_length=1024)
+        inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True)
         inputs = {k: v.to(device) for k, v in inputs.items()}
 
         with torch.no_grad():
@@ -52,18 +52,11 @@ def generate_text(prompt, max_tokens=50, temperature=0.7, top_p=0.9):
                 do_sample=True,
                 pad_token_id=tokenizer.eos_token_id,
                 eos_token_id=tokenizer.eos_token_id,
-                repetition_penalty=1.2, 
-                num_return_sequences=1,
-                early_stopping=True, 
-                no_repeat_ngram_size=3, 
+                repetition_penalty=1.2,
             )
 
         generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-
-        cleaned_text = clean_response(generated_text, formatted_prompt)
-
-        if cleaned_text.startswith("ตอบ: "):
-            cleaned_text = cleaned_text[5:].strip()
+        cleaned_text = clean_response(generated_text, prompt)
 
         return cleaned_text if cleaned_text else "ขออภัยฉันไม่เข้าใจคำถาม"
 
@@ -71,27 +64,21 @@ def generate_text(prompt, max_tokens=50, temperature=0.7, top_p=0.9):
         return f"เกิดข้อผิดพลาด: {str(e)}"
 
 
-def chat_with_model():
+if __name__ == "__main__":
     print("\n" + "=" * 50)
-    print("🤖 Gemma-3 Chat Bot พร้อมใช้งาน!")
+    print("🤖 Gemma-3 (Fine-tuned Bot) พร้อมใช้งาน!")
     print("=" * 50)
 
     while True:
         user_input = input("\n💭 You: ")
 
+        if user_input.lower() in ['exit', 'quit']:
+            break
         if not user_input.strip():
             print("❌ กรุณาพิมพ์ข้อความ")
             continue
 
-        print("🤔 กำลังคิด...")
-        response = generate_text(
-            user_input,
-            max_tokens=50,
-            temperature=0.8,
-            top_p=0.9
-        )
-        print(f"🤖 AI: {response}")
-
-
-if __name__ == "__main__":
-    chat_with_model()
+        # ใช้ Prompt รูปแบบเดียวกับตอนที่เราสั่งเทรน
+        formatted_prompt = f"คำถาม: {user_input}\nตอบ:"
+        response = generate_text(formatted_prompt)
+        print(f"🤖 Bot: {response}")
