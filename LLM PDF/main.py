@@ -1,10 +1,11 @@
 import os
+
 os.environ["TORCHDYNAMO_DISABLE"] = "1"
-import fitz 
+import fitz
 import numpy as np
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch, glob, os
+import torch, glob
 
 # -------------------- Config --------------------
 EMB_MODEL = "intfloat/multilingual-e5-base"
@@ -16,7 +17,6 @@ PDF_PATH_PATTERN = "./docs/*.pdf"
 
 # -------------------- Utils --------------------
 def read_pdf(path):
-    """อ่านข้อความจาก PDF"""
     pages = []
     with fitz.open(path) as doc:
         for i, page in enumerate(doc):
@@ -25,7 +25,6 @@ def read_pdf(path):
 
 
 def chunk_text(text, size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
-    """แบ่งข้อความเป็น chunks"""
     chunks = []
     start = 0
     while start < len(text):
@@ -112,7 +111,7 @@ if __name__ == "__main__":
 
     ข้อมูลที่เกี่ยวข้อง:
     {context}
-    
+
     (โปรดตอบเป็นภาษาไทย ชัดเจนและเข้าใจง่าย)
     คำตอบ:
     """
