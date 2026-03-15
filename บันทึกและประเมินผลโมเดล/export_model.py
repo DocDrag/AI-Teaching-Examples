@@ -20,7 +20,7 @@ base_model = AutoModelForCausalLM.from_pretrained(
     device_map="cpu" # ใช้ CPU ในการรวมร่างเพื่อป้องกัน VRAM เต็ม
 )
 
-print("🔄 กำลังสวมแว่นตาความรู้ (Adapter)...")
+print("🔄 กำลังใส่กรอบความรู้ (Adapter)...")
 model = PeftModel.from_pretrained(base_model, ADAPTER_PATH)
 
 print("✨ กำลังรวมร่างสมองหลักเข้ากับความรู้ใหม่ (Merge and Unload)...")
